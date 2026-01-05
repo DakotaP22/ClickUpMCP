@@ -1,0 +1,24 @@
+{
+	"name": "LocalStack",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "devcontainer",
+	"workspaceFolder": "/ClickUpMCP",
+	"remoteUser": "vscode",
+	"overrideCommand": false,
+	"forwardPorts": [],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"GitHub.copilot"
+			],
+			"mcp": {
+				"servers": {
+					"clickup": {
+						"type": "http",
+						"url": "https://mcp.clickup.com/mcp"
+					}
+				}
+			}
+		}
+	}
+}
