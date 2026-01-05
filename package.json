@@ -1,7 +1,7 @@
 {
   "name": "my-clickupmcp",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "build/index.js",
   "bin": {
     "my-clickupmcp": "./build/index.js"
   },
@@ -9,7 +9,7 @@
     "build": "tsc && chmod 755 build/index.js",
     "start": "node ./build/index.js",
     "inspect": "npx @modelcontextprotocol/inspector node ./build/index.js",
-    "postinstall": "npm run build && npm run start"
+    "postinstall": "npm run build"
   },
   "files": [
     "build"
