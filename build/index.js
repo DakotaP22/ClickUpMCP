@@ -9,6 +9,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const delete_handler_js_1 = require("./handlers/request/delete-handler.js");
 const get_handler_js_1 = require("./handlers/request/get-handler.js");
 const post_handler_js_1 = require("./handlers/request/post-handler.js");
+console.log("Starting ClickUp MCP Server...");
 // load environment variables from .env file
 dotenv_1.default.config();
 // Protection auto-enabled for localhost
