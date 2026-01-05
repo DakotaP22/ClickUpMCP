@@ -6,6 +6,8 @@ import { mcpGetHandler } from "./handlers/request/get-handler.js";
 import { mcpPostHandler } from "./handlers/request/post-handler.js";
 import { TransportSessionMap } from "./types/TransportSessionMap.js";
 
+console.log("Starting ClickUp MCP Server...");
+
 // load environment variables from .env file
 dotenv.config();
 
