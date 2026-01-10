@@ -21,7 +21,7 @@ const createChecklist = async (taskId, name) => {
         return data.checklist.id;
     }
     catch (err) {
-        console.error('Failed to create checklist:', err);
+        console.error(JSON.stringify({ error: "Failed to create checklist", details: err }));
         throw err;
     }
 };

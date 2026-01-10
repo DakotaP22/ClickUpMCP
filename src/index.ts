@@ -16,16 +16,16 @@ const USE_STDIO = process.env.MCP_TRANSPORT === 'stdio' || process.argv.includes
 
 if (USE_STDIO) {
     // stdio mode - for VS Code and other stdio clients
-    console.error("Starting ClickUp MCP Server (stdio mode)...");
+    console.error(JSON.stringify({ message: "Starting ClickUp MCP Server (stdio mode)..." }));
     
     const server = createServer();
     const transport = new StdioServerTransport();
     server.connect(transport);
     
-    console.error("ClickUp MCP Server ready (stdio mode)");
+    console.error(JSON.stringify({ message: "ClickUp MCP Server ready (stdio mode)" }));
 } else {
     // HTTP mode - for HTTP clients
-    console.log("Starting ClickUp MCP Server (HTTP mode)...");
+    console.log(JSON.stringify({ message: "Starting ClickUp MCP Server (HTTP mode)..." }));
     
     // Protection auto-enabled for localhost
     const app = createMcpExpressApp({ host: 'localhost' });
@@ -38,23 +38,23 @@ if (USE_STDIO) {
     const MCP_PORT = Number(process.env.MCP_PORT) || 3000;
     app.listen(MCP_PORT, (err: any) => {
         if (err) {
-            console.error('Failed to start server:', err);
+            console.error(JSON.stringify({ error: "Failed to start server", details: err }));
             process.exit(1);
         }
-        console.log(`MCP Streamable HTTP Server listening on port ${MCP_PORT}`);
+        console.log(JSON.stringify({ message: `MCP Streamable HTTP Server listening on port ${MCP_PORT}` }));
     });
 
     process.on('SIGINT', async () => {
-        console.log('Shutting down HTTP server...');
+        console.log(JSON.stringify({ message: "Shutting down HTTP server..." }));
 
         // Close all active transports to properly clean up resources
         for (const sessionId in transports) {
             try {
-                console.log(`Closing transport for session ${sessionId}`);
+                console.log(JSON.stringify({ message: `Closing transport for session ${sessionId}` }));
                 await transports[sessionId]!.close();
                 delete transports[sessionId];
             } catch (error) {
-                console.error(`Error closing transport for session ${sessionId}:`, error);
+                console.error(JSON.stringify({ error: `Error closing transport for session ${sessionId}`, details: error }));
             }
         }
         console.log('Server shutdown complete');

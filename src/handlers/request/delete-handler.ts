@@ -8,13 +8,13 @@ export const mcpDeleteHandler = (transports: TransportSessionMap) => async (req:
         return;
     }
 
-    console.log(`Received session termination request for session ${sessionId}`);
+    console.log(JSON.stringify({ message: `Received session termination request for session ${sessionId}` }));
 
     try {
         const transport = transports[sessionId];
         await transport.handleRequest(req, res);
     } catch (error) {
-        console.error('Error handling session termination:', error);
+        console.error(JSON.stringify({ error: "Error handling session termination", details: error }));
         if (!res.headersSent) {
             res.status(500).send('Error processing session termination');
         }

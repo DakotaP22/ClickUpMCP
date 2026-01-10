@@ -9,7 +9,7 @@ import { Request, Response } from "express";
 export const mcpPostHandler = (transports: TransportSessionMap) => async (req: Request, res: Response) => {
     const sessionId = req.headers['mcp-session-id'] as string | undefined;
     if (sessionId) {
-        console.log(`Received MCP request for session: ${sessionId}`);
+        console.log(JSON.stringify({ message: `Received MCP request for session: ${sessionId}` }));
     }
 
     
@@ -22,7 +22,7 @@ export const mcpPostHandler = (transports: TransportSessionMap) => async (req: R
                 sessionIdGenerator: () => randomUUID(),
                 eventStore: new InMemoryEventStore(),
                 onsessioninitialized: sessionId => {
-                    console.log(`Session initialized with ID: ${sessionId}`);
+                    console.log(JSON.stringify({ message: `Session initialized with ID: ${sessionId}` }));
                     transports[sessionId] = transport;
                 }
             });
@@ -30,7 +30,7 @@ export const mcpPostHandler = (transports: TransportSessionMap) => async (req: R
             transport.onclose = () => {
                 const sid = transport.sessionId;
                 if (sid && transports[sid]) {
-                    console.log(`Session closed with ID: ${sid}`);
+                    console.log(JSON.stringify({ message: `Session closed with ID: ${sid}` }));
                     delete transports[sid];
                 }
             }
@@ -44,7 +44,7 @@ export const mcpPostHandler = (transports: TransportSessionMap) => async (req: R
         await transport.handleRequest(req, res, req.body);
         return;
     } catch (err) {
-        console.error('Error handling MCP request:', err);
+        console.error(JSON.stringify({ error: "Error handling MCP request", details: err }));
         return res.status(500).send('Internal Server Error');
     }
 }

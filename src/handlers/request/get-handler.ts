@@ -11,7 +11,7 @@ export const mcpGetHandler = (transports: TransportSessionMap) => async (req: Re
     // Check for Last-Event-ID header for resumability
     const lastEventId = req.headers['last-event-id'] as string | undefined;
     if (lastEventId) {
-        console.log(`Client reconnecting with Last-Event-ID: ${lastEventId}`);
+        console.log(JSON.stringify({ message: `Client reconnecting with Last-Event-ID: ${lastEventId}` }));
     } else {
         console.log(`Establishing new SSE stream for session ${sessionId}`);
     }

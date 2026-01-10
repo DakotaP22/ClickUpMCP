@@ -8,7 +8,7 @@ const server_js_1 = require("../../server/server.js");
 const mcpPostHandler = (transports) => async (req, res) => {
     const sessionId = req.headers['mcp-session-id'];
     if (sessionId) {
-        console.log(`Received MCP request for session: ${sessionId}`);
+        console.log(JSON.stringify({ message: `Received MCP request for session: ${sessionId}` }));
     }
     try {
         let transport;
@@ -20,14 +20,14 @@ const mcpPostHandler = (transports) => async (req, res) => {
                 sessionIdGenerator: () => (0, node_crypto_1.randomUUID)(),
                 eventStore: new inMemoryEventStore_js_1.InMemoryEventStore(),
                 onsessioninitialized: sessionId => {
-                    console.log(`Session initialized with ID: ${sessionId}`);
+                    console.log(JSON.stringify({ message: `Session initialized with ID: ${sessionId}` }));
                     transports[sessionId] = transport;
                 }
             });
             transport.onclose = () => {
                 const sid = transport.sessionId;
                 if (sid && transports[sid]) {
-                    console.log(`Session closed with ID: ${sid}`);
+                    console.log(JSON.stringify({ message: `Session closed with ID: ${sid}` }));
                     delete transports[sid];
                 }
             };
@@ -41,7 +41,7 @@ const mcpPostHandler = (transports) => async (req, res) => {
         return;
     }
     catch (err) {
-        console.error('Error handling MCP request:', err);
+        console.error(JSON.stringify({ error: "Error handling MCP request", details: err }));
         return res.status(500).send('Internal Server Error');
     }
 };

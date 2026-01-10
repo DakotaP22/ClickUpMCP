@@ -23,7 +23,7 @@ export const createChecklistItem = async (checklistId: string, name: string): Pr
         const data = await res.json() as CreateChecklistItemResponse;
         return data.items.map(item => item.id);
     } catch (err) {
-        console.error('Failed to create checklist item:', err);
+        console.error(JSON.stringify({ error: "Failed to create checklist item", details: err }));
         throw err;
     }
 }

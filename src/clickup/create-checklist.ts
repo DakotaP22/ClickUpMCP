@@ -25,7 +25,7 @@ export const createChecklist = async (taskId: string, name: string): Promise<str
         const data = await res.json() as CreateChecklistResponse;
         return data.checklist.id;
     } catch (err) {
-        console.error('Failed to create checklist:', err);
+        console.error(JSON.stringify({ error: "Failed to create checklist", details: err }));
         throw err;
     }
 }

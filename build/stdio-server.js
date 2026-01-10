@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const stdio_js_1 = require("@modelcontextprotocol/sdk/server/stdio.js");
 const dotenv_1 = __importDefault(require("dotenv"));
 const server_js_1 = require("./server/server.js");
-console.error("Starting ClickUp MCP Server (stdio mode)...");
+console.error(JSON.stringify({ message: "Starting ClickUp MCP Server (stdio mode)..." }));
 // Load environment variables from .env file
 dotenv_1.default.config();
 // Create the MCP server
@@ -16,15 +16,15 @@ const server = (0, server_js_1.createServer)();
 const transport = new stdio_js_1.StdioServerTransport();
 // Connect server to transport
 server.connect(transport);
-console.error("ClickUp MCP Server ready (stdio mode)");
+console.error(JSON.stringify({ message: "ClickUp MCP Server ready (stdio mode)" }));
 // Handle graceful shutdown
 process.on('SIGINT', async () => {
-    console.error('Shutting down server...');
+    console.error(JSON.stringify({ message: "Shutting down server..." }));
     await transport.close();
     process.exit(0);
 });
 process.on('SIGTERM', async () => {
-    console.error('Shutting down server...');
+    console.error(JSON.stringify({ message: "Shutting down server..." }));
     await transport.close();
     process.exit(0);
 });
