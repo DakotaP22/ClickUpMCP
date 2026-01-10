@@ -9,7 +9,7 @@
     "build": "tsc && chmod 755 build/index.js",
     "start": "node ./build/index.js",
     "start:stdio": "node ./build/index.js --stdio",
-    "inspect": "npx @modelcontextprotocol/inspector node ./build/index.js --stdio"
+    "inspect:stdio": "npx @modelcontextprotocol/inspector node ./build/index.js --stdio"
   },
   "files": [
     "build",

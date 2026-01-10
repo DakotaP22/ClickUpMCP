@@ -5,40 +5,55 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_js_1 = require("@modelcontextprotocol/sdk/server/express.js");
+const stdio_js_1 = require("@modelcontextprotocol/sdk/server/stdio.js");
 const dotenv_1 = __importDefault(require("dotenv"));
 const delete_handler_js_1 = require("./handlers/request/delete-handler.js");
 const get_handler_js_1 = require("./handlers/request/get-handler.js");
 const post_handler_js_1 = require("./handlers/request/post-handler.js");
-console.log("Starting ClickUp MCP Server...");
+const server_js_1 = require("./server/server.js");
 // load environment variables from .env file
 dotenv_1.default.config();
-// Protection auto-enabled for localhost
-const app = (0, express_js_1.createMcpExpressApp)({ host: 'localhost' });
-const transports = {};
-app.post('/mcp', (0, post_handler_js_1.mcpPostHandler)(transports));
-app.get('/mcp', (0, get_handler_js_1.mcpGetHandler)(transports));
-app.delete('/mcp', (0, delete_handler_js_1.mcpDeleteHandler)(transports));
-const MCP_PORT = Number(process.env.MCP_PORT) || 3000;
-app.listen(MCP_PORT, (err) => {
-    if (err) {
-        console.error('Failed to start server:', err);
-        process.exit(1);
-    }
-    console.log(`MCP Streamable HTTP Server listening on port ${MCP_PORT}`);
-});
-process.on('SIGINT', async () => {
-    console.log('Shutting down server...');
-    // Close all active transports to properly clean up resources
-    for (const sessionId in transports) {
-        try {
-            console.log(`Closing transport for session ${sessionId}`);
-            await transports[sessionId].close();
-            delete transports[sessionId];
+// Check if we should run in stdio mode (for VS Code) or HTTP mode
+const USE_STDIO = process.env.MCP_TRANSPORT === 'stdio' || process.argv.includes('--stdio');
+if (USE_STDIO) {
+    // stdio mode - for VS Code and other stdio clients
+    console.error("Starting ClickUp MCP Server (stdio mode)...");
+    const server = (0, server_js_1.createServer)();
+    const transport = new stdio_js_1.StdioServerTransport();
+    server.connect(transport);
+    console.error("ClickUp MCP Server ready (stdio mode)");
+}
+else {
+    // HTTP mode - for HTTP clients
+    console.log("Starting ClickUp MCP Server (HTTP mode)...");
+    // Protection auto-enabled for localhost
+    const app = (0, express_js_1.createMcpExpressApp)({ host: 'localhost' });
+    const transports = {};
+    app.post('/mcp', (0, post_handler_js_1.mcpPostHandler)(transports));
+    app.get('/mcp', (0, get_handler_js_1.mcpGetHandler)(transports));
+    app.delete('/mcp', (0, delete_handler_js_1.mcpDeleteHandler)(transports));
+    const MCP_PORT = Number(process.env.MCP_PORT) || 3000;
+    app.listen(MCP_PORT, (err) => {
+        if (err) {
+            console.error('Failed to start server:', err);
+            process.exit(1);
         }
-        catch (error) {
-            console.error(`Error closing transport for session ${sessionId}:`, error);
+        console.log(`MCP Streamable HTTP Server listening on port ${MCP_PORT}`);
+    });
+    process.on('SIGINT', async () => {
+        console.log('Shutting down HTTP server...');
+        // Close all active transports to properly clean up resources
+        for (const sessionId in transports) {
+            try {
+                console.log(`Closing transport for session ${sessionId}`);
+                await transports[sessionId].close();
+                delete transports[sessionId];
+            }
+            catch (error) {
+                console.error(`Error closing transport for session ${sessionId}:`, error);
+            }
         }
-    }
-    console.log('Server shutdown complete');
-    process.exit(0);
-});
+        console.log('Server shutdown complete');
+        process.exit(0);
+    });
+}
