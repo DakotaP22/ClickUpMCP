@@ -12,7 +12,11 @@ const get_handler_js_1 = require("./handlers/request/get-handler.js");
 const post_handler_js_1 = require("./handlers/request/post-handler.js");
 const server_js_1 = require("./server/server.js");
 // load environment variables from .env file
+// Temporarily suppress console.log during dotenv loading
+const originalConsoleLog = console.log;
+console.log = () => { };
 dotenv_1.default.config();
+console.log = originalConsoleLog;
 // Check if we should run in stdio mode (for VS Code) or HTTP mode
 const USE_STDIO = process.env.MCP_TRANSPORT === 'stdio' || process.argv.includes('--stdio');
 if (USE_STDIO) {

@@ -9,7 +9,11 @@ import { createServer } from "./server/server.js";
 import { TransportSessionMap } from "./types/TransportSessionMap.js";
 
 // load environment variables from .env file
+// Temporarily suppress console.log during dotenv loading
+const originalConsoleLog = console.log;
+console.log = () => {};
 dotenv.config();
+console.log = originalConsoleLog;
 
 // Check if we should run in stdio mode (for VS Code) or HTTP mode
 const USE_STDIO = process.env.MCP_TRANSPORT === 'stdio' || process.argv.includes('--stdio');
