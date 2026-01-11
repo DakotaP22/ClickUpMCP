@@ -1,9 +1,9 @@
 import { createChecklist } from "../clickup/checklist/create-checklist";
 import { createChecklistItem } from "../clickup/checklist/create-checklist-item";
 import { CreateTask } from "../clickup/task/create-task";
+import { getBusinessRequirementsListId, getFolderId } from "../util/env-getters";
 
 type CreateBusinessRequirementHandlerInput = {
-    listId: string,
     name: string,
     description: string,
     acceptanceCriteria?: string[],
@@ -11,8 +11,9 @@ type CreateBusinessRequirementHandlerInput = {
 
 export const CreateBusinessRequirementHandler = 
     async (input: CreateBusinessRequirementHandlerInput) => {
-
-        const task_id = await CreateTask(input.listId, {
+        const requirements_list_id = getBusinessRequirementsListId();
+        
+        const task_id = await CreateTask(requirements_list_id, {
             name: input.name,
             description: input.description
         });
