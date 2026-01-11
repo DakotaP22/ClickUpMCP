@@ -13,7 +13,7 @@ export const CreateBusinessRequirementHandler =
     async (input: CreateBusinessRequirementHandlerInput) => {
         const requirements_list_id = getBusinessRequirementsListId();
         
-        const task_id = await CreateTask(requirements_list_id, {
+        const { id: task_id } = await CreateTask(requirements_list_id, {
             name: input.name,
             description: input.description
         });

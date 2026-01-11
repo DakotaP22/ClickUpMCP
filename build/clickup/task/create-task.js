@@ -8,8 +8,8 @@ const CreateTask = async (list_id, task) => {
         method: 'POST',
         headers: {
             'Authorization': apiToken,
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'content-type': 'application/json',
+            accept: 'application/json'
         },
         body: JSON.stringify({
             name: task.name,
@@ -17,12 +17,13 @@ const CreateTask = async (list_id, task) => {
         })
     };
     try {
+        console.error(JSON.stringify({ message: `Creating task in ClickUp list ${list_id} with options ${JSON.stringify(options)}` }));
         const res = await fetch(endpoint, options);
         if (!res.ok) {
             throw new Error(`ClickUp API error: ${res.status} ${res.statusText}`);
         }
         const data = await res.json();
-        return data.task_id;
+        return data;
     }
     catch (err) {
         console.error(JSON.stringify({ error: "Failed to create task", details: err }));

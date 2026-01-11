@@ -7,7 +7,7 @@ const create_task_1 = require("../clickup/task/create-task");
 const env_getters_1 = require("../util/env-getters");
 const CreateBusinessRequirementHandler = async (input) => {
     const requirements_list_id = (0, env_getters_1.getBusinessRequirementsListId)();
-    const task_id = await (0, create_task_1.CreateTask)(requirements_list_id, {
+    const { id: task_id } = await (0, create_task_1.CreateTask)(requirements_list_id, {
         name: input.name,
         description: input.description
     });
