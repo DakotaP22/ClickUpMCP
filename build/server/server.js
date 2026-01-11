@@ -6,8 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createServer = void 0;
 const mcp_js_1 = require("@modelcontextprotocol/sdk/server/mcp.js");
 const v4_1 = __importDefault(require("zod/v4"));
-const create_checklist_handler_1 = require("../handlers/create-checklist-handler");
-const create_checklist_item_handler_1 = require("../handlers/create-checklist-item-handler");
+const create_business_requirement_handler_1 = require("../handlers/create-business-requirement-handler");
 const MCP_API_DETAILS = {
     name: "ClickUp MCP",
     description: "ClickUp Model Context Protocol Server",
@@ -18,28 +17,19 @@ const MCP_API_OPTS = {
 };
 const createServer = () => {
     const server = new mcp_js_1.McpServer(MCP_API_DETAILS, MCP_API_OPTS);
-    server.registerTool('clickup-checklist-create', {
-        title: 'Create ClickUp Task Checklist',
-        description: 'Create a new checklist in a given ClickUp task',
+    server.registerTool('clickup-business-requirement-create', {
+        title: 'Create ClickUp Business Requirement',
+        description: 'Create a new business requirement task in ClickUp with refinement and acceptance criteria checklists',
         inputSchema: {
+            name: v4_1.default.string(),
+            description: v4_1.default.string(),
+            acceptanceCriteria: v4_1.default.array(v4_1.default.string()).optional()
+        },
+        outputSchema: {
             taskId: v4_1.default.string(),
-            name: v4_1.default.string()
-        },
-        outputSchema: {
-            checklistId: v4_1.default.string()
+            taskUrl: v4_1.default.string()
         }
-    }, create_checklist_handler_1.createChecklistHandler);
-    server.registerTool('clickup-checklist-item-create', {
-        title: 'Create ClickUp Task Checklist Item',
-        description: 'Create a new checklist item in a given ClickUp checklist',
-        inputSchema: {
-            checklistId: v4_1.default.string(),
-            name: v4_1.default.string()
-        },
-        outputSchema: {
-            checklistId: v4_1.default.string()
-        }
-    }, create_checklist_item_handler_1.createChecklistItemHandler);
+    }, create_business_requirement_handler_1.CreateBusinessRequirementHandler);
     return server;
 };
 exports.createServer = createServer;

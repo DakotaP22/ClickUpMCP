@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createChecklistItemHandler = void 0;
-const create_checklist_item_1 = require("../clickup/create-checklist-item");
+const create_checklist_item_1 = require("../clickup/checklist/create-checklist-item");
 const createChecklistItemHandler = async ({ checklistId, name }) => {
     const checklistItemIds = await (0, create_checklist_item_1.createChecklistItem)(checklistId, name);
     const output = { ids: checklistItemIds };
