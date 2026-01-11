@@ -1,7 +1,6 @@
-import { takeResult } from "@modelcontextprotocol/sdk/experimental";
-import { createChecklist } from "../clickup/create-checklist";
-import { createChecklistItem } from "../clickup/create-checklist-item";
-import { CreateTask } from "../clickup/create-task"
+import { createChecklist } from "../clickup/checklist/create-checklist";
+import { createChecklistItem } from "../clickup/checklist/create-checklist-item";
+import { CreateTask } from "../clickup/task/create-task";
 
 type CreateBusinessRequirementHandlerInput = {
     listId: string,

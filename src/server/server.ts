@@ -1,7 +1,7 @@
 import { ServerOptions } from "@modelcontextprotocol/sdk/server";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import z4 from "zod/v4";
-import { createChecklist, CreateChecklistResponse } from "../clickup/create-checklist";
+import { createChecklist, CreateChecklistResponse } from "../clickup/checklist/create-checklist";
 import { createChecklistHandler } from "../handlers/create-checklist-handler";
 import { createChecklistItemHandler } from "../handlers/create-checklist-item-handler";
 import { CreateBusinessRequirementHandler } from "../handlers/create-business-requirement-handler";

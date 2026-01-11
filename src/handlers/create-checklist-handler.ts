@@ -1,4 +1,4 @@
-import { createChecklist } from "../clickup/create-checklist";
+import { createChecklist } from "../clickup/checklist/create-checklist";
 
 type CreateChecklistHandlerInput = {
     taskId: string,
