@@ -1,0 +1,53 @@
+import { takeResult } from "@modelcontextprotocol/sdk/experimental";
+import { createChecklist } from "../clickup/create-checklist";
+import { createChecklistItem } from "../clickup/create-checklist-item";
+import { CreateTask } from "../clickup/create-task"
+
+type CreateBusinessRequirementHandlerInput = {
+    listId: string,
+    name: string,
+    description: string,
+    acceptanceCriteria?: string[],
+}
+
+export const CreateBusinessRequirementHandler = 
+    async (input: CreateBusinessRequirementHandlerInput) => {
+
+        const task_id = await CreateTask(input.listId, {
+            name: input.name,
+            description: input.description
+        });
+
+        const refinement_checklistId = await createChecklist(
+            task_id,
+            "Refinement Criteria",
+        );        
+
+        await Promise.all([
+            createChecklistItem(refinement_checklistId, "Clear and concise description of the requirement"),
+            createChecklistItem(refinement_checklistId, "Acceptance criteria defined"),
+            createChecklistItem(refinement_checklistId, "Dependencies identified"),
+            createChecklistItem(refinement_checklistId, "Requirement is atomic and testable"),
+        ])
+
+        if(input.acceptanceCriteria && input.acceptanceCriteria.length > 0) {
+            const acceptanceCriteria_checklistId = await createChecklist(
+                task_id,
+                "Acceptance Criteria",
+            );
+
+            await Promise.all(input.acceptanceCriteria.map(criteria => 
+                createChecklistItem(acceptanceCriteria_checklistId, criteria)
+            ));
+        }
+
+        const output =  {
+            taskId: task_id,
+            taskUrl: `https://app.clickup.com/t/${task_id}`
+        };
+
+        return {
+            content: [{ type: 'text' as const, text: JSON.stringify(output) }],
+            structuredContent: output
+        }
+    }
