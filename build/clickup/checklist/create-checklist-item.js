@@ -18,7 +18,7 @@ const createChecklistItem = async (checklistId, name) => {
             throw new Error(`ClickUp API error: ${res.status} ${res.statusText}`);
         }
         const data = await res.json();
-        return data.items.map(item => item.id);
+        return data;
     }
     catch (err) {
         console.error(JSON.stringify({ error: "Failed to create checklist item", details: err }));
