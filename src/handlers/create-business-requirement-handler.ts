@@ -18,7 +18,7 @@ export const CreateBusinessRequirementHandler =
             description: input.description
         });
 
-        const refinement_checklistId = await createChecklist(
+        const { id: refinement_checklistId } = await createChecklist(
             task_id,
             "Refinement Criteria",
         );        
@@ -31,13 +31,13 @@ export const CreateBusinessRequirementHandler =
         ])
 
         if(input.acceptanceCriteria && input.acceptanceCriteria.length > 0) {
-            const acceptanceCriteria_checklistId = await createChecklist(
+            const { id: acceptance_criteria_checklist_id} = await createChecklist(
                 task_id,
                 "Acceptance Criteria",
             );
 
             await Promise.all(input.acceptanceCriteria.map(criteria => 
-                createChecklistItem(acceptanceCriteria_checklistId, criteria)
+                createChecklistItem(acceptance_criteria_checklist_id, criteria)
             ));
         }
 
