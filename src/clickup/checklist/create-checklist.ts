@@ -1,5 +1,5 @@
 export type CreateChecklistResponse = {
-    id: string
+    checklist: { id: string }
 }
 
 export const createChecklist = async (taskId: string, name: string): Promise<CreateChecklistResponse> => {

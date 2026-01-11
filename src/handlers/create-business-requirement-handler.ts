@@ -18,23 +18,27 @@ export const CreateBusinessRequirementHandler =
             description: input.description
         });
 
-        const { id: refinement_checklistId } = await createChecklist(
+        const refinement_checklist_response = await createChecklist(
             task_id,
             "Refinement Criteria",
-        );        
+        );    
+        
+        const refinement_checklist_id = refinement_checklist_response.checklist.id;
 
         await Promise.all([
-            createChecklistItem(refinement_checklistId, "Clear and concise description of the requirement"),
-            createChecklistItem(refinement_checklistId, "Acceptance criteria defined"),
-            createChecklistItem(refinement_checklistId, "Dependencies identified"),
-            createChecklistItem(refinement_checklistId, "Requirement is atomic and testable"),
+            createChecklistItem(refinement_checklist_id, "Clear and concise description of the requirement"),
+            createChecklistItem(refinement_checklist_id, "Acceptance criteria defined"),
+            createChecklistItem(refinement_checklist_id, "Dependencies identified"),
+            createChecklistItem(refinement_checklist_id, "Requirement is atomic and testable"),
         ])
 
         if(input.acceptanceCriteria && input.acceptanceCriteria.length > 0) {
-            const { id: acceptance_criteria_checklist_id} = await createChecklist(
+            const acceptance_criteria_checklist_response = await createChecklist(
                 task_id,
                 "Acceptance Criteria",
             );
+
+            const acceptance_criteria_checklist_id = acceptance_criteria_checklist_response.checklist.id;
 
             await Promise.all(input.acceptanceCriteria.map(criteria => 
                 createChecklistItem(acceptance_criteria_checklist_id, criteria)
