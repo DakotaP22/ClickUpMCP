@@ -2,15 +2,11 @@ import { createChecklist } from "../clickup/checklist/create-checklist";
 import { createChecklistItem } from "../clickup/checklist/create-checklist-item";
 import { CreateTask } from "../clickup/task/create-task";
 import { getBusinessRequirementsListId, getFolderId } from "../../util/env-getters";
-
-type CreateBusinessRequirementHandlerInput = {
-    name: string,
-    description: string,
-    acceptanceCriteria?: string[],
-}
+import { CreateBusinessRequirementInput } from "../../models/business_requirements/CreateBusinessRequirementInput";
+import { CreateBusinessRequirementOutput } from "../../models/business_requirements/CreateBusinessRequirementOutput";
 
 export const CreateBusinessRequirementHandler = 
-    async (input: CreateBusinessRequirementHandlerInput) => {
+    async (input: CreateBusinessRequirementInput) => {
         const requirements_list_id = getBusinessRequirementsListId();
         
         const { id: task_id } = await CreateTask(requirements_list_id, {
@@ -45,7 +41,7 @@ export const CreateBusinessRequirementHandler =
             ));
         }
 
-        const output =  {
+        const output: CreateBusinessRequirementOutput =  {
             taskId: task_id,
             taskUrl: `https://app.clickup.com/t/${task_id}`
         };

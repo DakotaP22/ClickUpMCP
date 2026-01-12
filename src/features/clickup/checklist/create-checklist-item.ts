@@ -1,11 +1,6 @@
-export type CreateChecklistItemResponse = {
-    checklist: { 
-        id: string;
-        items: { id: string }[]
-    }
-}
+import { CreateChecklistItemClickUpResponse, CreateChecklistItemClickUpResponseSchema } from "../../../models/clickup/ChecklistItem";
 
-export const createChecklistItem = async (checklistId: string, name: string): Promise<CreateChecklistItemResponse> => {
+export const createChecklistItem = async (checklistId: string, name: string): Promise<CreateChecklistItemClickUpResponse> => {
     const apiToken = process.env.CLICKUP_API_KEY;
 
     const options = {
@@ -23,8 +18,9 @@ export const createChecklistItem = async (checklistId: string, name: string): Pr
         if (!res.ok) {
             throw new Error(`ClickUp API error: ${res.status} ${res.statusText}`);
         }
-        const data = await res.json() as CreateChecklistItemResponse;
-        return data;
+        const data = await res.json();
+        console.error(JSON.stringify({ debug: "Raw API response", data }));
+        return CreateChecklistItemClickUpResponseSchema.parse(data);
     } catch (err) {
         console.error(JSON.stringify({ error: "Failed to create checklist item", details: err }));
         throw err;

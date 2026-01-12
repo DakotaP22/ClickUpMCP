@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createChecklist = void 0;
+const Checklist_1 = require("../../../models/clickup/Checklist");
 const createChecklist = async (taskId, name) => {
     const apiToken = process.env.CLICKUP_API_KEY;
     const options = {
@@ -18,7 +19,7 @@ const createChecklist = async (taskId, name) => {
             throw new Error(`ClickUp API error: ${res.status} ${res.statusText}`);
         }
         const data = await res.json();
-        return data;
+        return Checklist_1.CreateChecklistClickUpResponseSchema.parse(data);
     }
     catch (err) {
         console.error(JSON.stringify({ error: "Failed to create checklist", details: err }));

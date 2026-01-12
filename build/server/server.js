@@ -1,14 +1,12 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createServer = void 0;
 const mcp_js_1 = require("@modelcontextprotocol/sdk/server/mcp.js");
-const v4_1 = __importDefault(require("zod/v4"));
 const create_business_requirement_handler_1 = require("../features/business-requirements/create-business-requirement-handler");
 const list_business_requirements_handler_1 = require("../features/business-requirements/list-business-requirements-handler");
 const ListBusinessRequirementsInput_1 = require("../models/business_requirements/ListBusinessRequirementsInput");
+const CreateBusinessRequirementInput_1 = require("../models/business_requirements/CreateBusinessRequirementInput");
+const CreateBusinessRequirementOutput_1 = require("../models/business_requirements/CreateBusinessRequirementOutput");
 const Task_1 = require("../models/clickup/Task");
 const MCP_API_DETAILS = {
     name: "ClickUp MCP",
@@ -23,15 +21,8 @@ const createServer = () => {
     server.registerTool('clickup-business-requirement-create', {
         title: 'Create ClickUp Business Requirement',
         description: 'Create a new business requirement task in ClickUp with refinement and acceptance criteria checklists',
-        inputSchema: {
-            name: v4_1.default.string(),
-            description: v4_1.default.string(),
-            acceptanceCriteria: v4_1.default.array(v4_1.default.string()).optional()
-        },
-        outputSchema: {
-            taskId: v4_1.default.string(),
-            taskUrl: v4_1.default.string()
-        }
+        inputSchema: CreateBusinessRequirementInput_1.CreateBusinessRequirementInputSchema,
+        outputSchema: CreateBusinessRequirementOutput_1.CreateBusinessRequirementOutputSchema
     }, create_business_requirement_handler_1.CreateBusinessRequirementHandler);
     server.registerTool('clickup-business-requirements-list', {
         title: 'List Business Requirements',

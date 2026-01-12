@@ -4,6 +4,8 @@ import z4 from "zod/v4";
 import { CreateBusinessRequirementHandler } from "../features/business-requirements/create-business-requirement-handler";
 import { ListBusinessRequirementsHandler } from "../features/business-requirements/list-business-requirements-handler";
 import { ListBusinessRequirementsInputSchema } from "../models/business_requirements/ListBusinessRequirementsInput";
+import { CreateBusinessRequirementInputSchema } from "../models/business_requirements/CreateBusinessRequirementInput";
+import { CreateBusinessRequirementOutputSchema } from "../models/business_requirements/CreateBusinessRequirementOutput";
 import { TaskSchema } from "@modelcontextprotocol/sdk/types.js";
 import { GetTasksClickUpResponseSchema } from "../models/clickup/Task";
 
@@ -25,15 +27,8 @@ export const createServer = () => {
         {
             title: 'Create ClickUp Business Requirement',
             description: 'Create a new business requirement task in ClickUp with refinement and acceptance criteria checklists',
-            inputSchema: {
-                name: z4.string(),
-                description: z4.string(),
-                acceptanceCriteria: z4.array(z4.string()).optional()
-            },
-            outputSchema: {
-                taskId: z4.string(),
-                taskUrl: z4.string()
-            }
+            inputSchema: CreateBusinessRequirementInputSchema,
+            outputSchema: CreateBusinessRequirementOutputSchema
         },
         CreateBusinessRequirementHandler
     );

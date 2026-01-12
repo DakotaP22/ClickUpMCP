@@ -1,4 +1,5 @@
 import z4 from "zod/v4";
+import { ChecklistSchema } from "./Checklist";
 
 export const TaskSchema = z4.object({
     id: z4.string(),
@@ -7,15 +8,7 @@ export const TaskSchema = z4.object({
         status: z4.string(),
         type: z4.string()
     }), 
-    checklists: z4.array(z4.object({
-        id: z4.string(),
-        name: z4.string(),
-        items: z4.array(z4.object({
-            id: z4.string(),
-            name: z4.string(),
-            resolved: z4.boolean()
-        }))
-    }))
+    checklists: z4.array(ChecklistSchema)
 });
 
 export const GetTasksClickUpResponseSchema = z4.object({
