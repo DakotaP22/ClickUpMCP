@@ -2,7 +2,7 @@ import { InMemoryEventStore } from "@modelcontextprotocol/sdk/examples/shared/in
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { randomUUID } from "node:crypto";
 import { createServer } from "../../server/server.js";
-import { TransportSessionMap } from "../../types/TransportSessionMap.js";
+import { TransportSessionMap } from "../../models/TransportSessionMap.js";
 // import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js";
 import { Request, Response } from "express";
 

@@ -6,7 +6,7 @@ import { mcpDeleteHandler } from "./handlers/request/delete-handler.js";
 import { mcpGetHandler } from "./handlers/request/get-handler.js";
 import { mcpPostHandler } from "./handlers/request/post-handler.js";
 import { createServer } from "./server/server.js";
-import { TransportSessionMap } from "./types/TransportSessionMap.js";
+import { TransportSessionMap } from "./models/TransportSessionMap.js";
 
 // load environment variables from .env file
 // Temporarily suppress console.log during dotenv loading
