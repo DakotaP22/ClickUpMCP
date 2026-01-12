@@ -1,7 +1,9 @@
 import { ServerOptions } from "@modelcontextprotocol/sdk/server";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import z4 from "zod/v4";
-import { CreateBusinessRequirementHandler } from "../handlers/create-business-requirement-handler";
+import { CreateBusinessRequirementHandler } from "../handlers/business-requirements/create-business-requirement-handler";
+import { GetTasks, GetTasksResponse, GetTasksOutputSchema } from "../clickup/task/get-tasks";
+import { ListBusinessRequirementsHandler } from "../handlers/business-requirements/list-business-requirements-handler";
 
 const MCP_API_DETAILS = {
     name: "ClickUp MCP",
@@ -33,7 +35,17 @@ export const createServer = () => {
         },
         CreateBusinessRequirementHandler
     );
-    
+
+    server.registerTool(
+        'clickup-business-requirements-list',
+        {
+            title: 'List Business Requirements',
+            description: 'List all business requirement tasks from ClickUp',
+            outputSchema: GetTasksOutputSchema
+        },
+        ListBusinessRequirementsHandler
+    );
+
 
     return server;
 }

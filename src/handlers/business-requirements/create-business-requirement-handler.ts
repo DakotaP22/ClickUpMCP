@@ -1,7 +1,7 @@
-import { createChecklist } from "../clickup/checklist/create-checklist";
-import { createChecklistItem } from "../clickup/checklist/create-checklist-item";
-import { CreateTask } from "../clickup/task/create-task";
-import { getBusinessRequirementsListId, getFolderId } from "../util/env-getters";
+import { createChecklist } from "../../clickup/checklist/create-checklist";
+import { createChecklistItem } from "../../clickup/checklist/create-checklist-item";
+import { CreateTask } from "../../clickup/task/create-task";
+import { getBusinessRequirementsListId, getFolderId } from "../../util/env-getters";
 
 type CreateBusinessRequirementHandlerInput = {
     name: string,
