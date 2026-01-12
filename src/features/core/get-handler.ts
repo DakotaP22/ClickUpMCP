@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { TransportSessionMap } from '../../models/TransportSessionMap.js';
+import { TransportSessionMap } from '../../../models/TransportSessionMap.js';
 
 export const mcpGetHandler = (transports: TransportSessionMap) => async (req: Request, res: Response) => {
     const sessionId = req.headers['mcp-session-id'] as string | undefined;

@@ -2,9 +2,9 @@
 import { createMcpExpressApp } from "@modelcontextprotocol/sdk/server/express.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import dotenv from "dotenv";
-import { mcpDeleteHandler } from "./handlers/request/delete-handler.js";
-import { mcpGetHandler } from "./handlers/request/get-handler.js";
-import { mcpPostHandler } from "./handlers/request/post-handler.js";
+import { mcpDeleteHandler } from "./features/core/delete-handler.js";
+import { mcpGetHandler } from "./features/core/get-handler.js";
+import { mcpPostHandler } from "./features/core/post-handler.js";
 import { createServer } from "./server/server.js";
 import { TransportSessionMap } from "./models/TransportSessionMap.js";
 

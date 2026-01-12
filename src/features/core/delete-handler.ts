@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { TransportSessionMap } from "../../models/TransportSessionMap";
+import { TransportSessionMap } from "../../../models/TransportSessionMap";
 
 export const mcpDeleteHandler = (transports: TransportSessionMap) => async (req: Request, res: Response) => {
     const sessionId = req.headers['mcp-session-id'] as string | undefined;
