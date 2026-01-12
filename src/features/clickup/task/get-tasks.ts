@@ -1,28 +1,6 @@
-import z4 from "zod/v4";
+import { Task, TaskSchema } from "../../../models/clickup/Task";
 
-export const GetTasksOutputSchema = z4.object({
-    tasks: z4.array(z4.object({
-        id: z4.string(),
-        name: z4.string(),
-        status: z4.object({
-            status: z4.string(),
-            type: z4.string()
-        }), 
-        checklists: z4.array(z4.object({
-            id: z4.string(),
-            name: z4.string(),
-            items: z4.array(z4.object({
-                id: z4.string(),
-                name: z4.string(),
-                resolved: z4.boolean()
-            }))
-        }))
-    }))
-});
-
-export type GetTasksResponse = z4.infer<typeof GetTasksOutputSchema>;
-
-export const GetTasks = async (list_id: string): Promise<GetTasksResponse> => {
+export const GetTasks = async (list_id: string): Promise<Task> => {
     const endpoint = `https://api.clickup.com/api/v2/list/${list_id}/task`;
     
     const apiToken = process.env.CLICKUP_API_KEY;
@@ -40,9 +18,8 @@ export const GetTasks = async (list_id: string): Promise<GetTasksResponse> => {
         if (!res.ok) {
             throw new Error(`ClickUp API error: ${res.status} ${res.statusText}`);
         }
-        const rawData = await res.json();
-        const data = GetTasksOutputSchema.parse(rawData);
-        return data;
+        const data = await res.json();
+        return TaskSchema.parse(data);
     } catch (err) {
         console.error(JSON.stringify({ error: 'Failed to get tasks', details: err }));
         throw err;
