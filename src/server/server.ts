@@ -1,9 +1,9 @@
 import { ServerOptions } from "@modelcontextprotocol/sdk/server";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import z4 from "zod/v4";
-import { CreateBusinessRequirementHandler } from "../handlers/business-requirements/create-business-requirement-handler";
+import { CreateBusinessRequirementHandler } from "../features/business-requirements/create-business-requirement-handler";
 import { GetTasks, GetTasksResponse, GetTasksOutputSchema } from "../features/clickup/task/get-tasks";
-import { ListBusinessRequirementsHandler } from "../handlers/business-requirements/list-business-requirements-handler";
+import { ListBusinessRequirementsHandler } from "../features/business-requirements/list-business-requirements-handler";
 
 const MCP_API_DETAILS = {
     name: "ClickUp MCP",
