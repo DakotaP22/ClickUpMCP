@@ -2,8 +2,10 @@ import { ServerOptions } from "@modelcontextprotocol/sdk/server";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import z4 from "zod/v4";
 import { CreateBusinessRequirementHandler } from "../features/business-requirements/create-business-requirement-handler";
-import { GetTasks, GetTasksResponse, GetTasksOutputSchema } from "../features/clickup/task/get-tasks";
 import { ListBusinessRequirementsHandler } from "../features/business-requirements/list-business-requirements-handler";
+import { ListBusinessRequirementsInputSchema } from "../models/business_requirements/ListBusinessRequirementsInput";
+import { TaskSchema } from "@modelcontextprotocol/sdk/types.js";
+import { GetTasksClickUpResponseSchema } from "../models/clickup/Task";
 
 const MCP_API_DETAILS = {
     name: "ClickUp MCP",
@@ -41,7 +43,8 @@ export const createServer = () => {
         {
             title: 'List Business Requirements',
             description: 'List all business requirement tasks from ClickUp',
-            outputSchema: GetTasksOutputSchema
+            inputSchema: ListBusinessRequirementsInputSchema,
+            outputSchema: GetTasksClickUpResponseSchema
         },
         ListBusinessRequirementsHandler
     );

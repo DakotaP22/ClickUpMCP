@@ -7,9 +7,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_js_1 = require("@modelcontextprotocol/sdk/server/express.js");
 const stdio_js_1 = require("@modelcontextprotocol/sdk/server/stdio.js");
 const dotenv_1 = __importDefault(require("dotenv"));
-const delete_handler_js_1 = require("./handlers/request/delete-handler.js");
-const get_handler_js_1 = require("./handlers/request/get-handler.js");
-const post_handler_js_1 = require("./handlers/request/post-handler.js");
+const delete_handler_js_1 = require("./features/core/delete-handler.js");
+const get_handler_js_1 = require("./features/core/get-handler.js");
+const post_handler_js_1 = require("./features/core/post-handler.js");
 const server_js_1 = require("./server/server.js");
 // load environment variables from .env file
 // Temporarily suppress console.log during dotenv loading

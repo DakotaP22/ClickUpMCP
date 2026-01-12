@@ -6,9 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createServer = void 0;
 const mcp_js_1 = require("@modelcontextprotocol/sdk/server/mcp.js");
 const v4_1 = __importDefault(require("zod/v4"));
-const create_business_requirement_handler_1 = require("../handlers/business-requirements/create-business-requirement-handler");
-const get_tasks_1 = require("../clickup/task/get-tasks");
-const list_business_requirements_handler_1 = require("../handlers/business-requirements/list-business-requirements-handler");
+const create_business_requirement_handler_1 = require("../features/business-requirements/create-business-requirement-handler");
+const list_business_requirements_handler_1 = require("../features/business-requirements/list-business-requirements-handler");
+const ListBusinessRequirementsInput_1 = require("../models/business_requirements/ListBusinessRequirementsInput");
+const Task_1 = require("../models/clickup/Task");
 const MCP_API_DETAILS = {
     name: "ClickUp MCP",
     description: "ClickUp Model Context Protocol Server",
@@ -35,7 +36,8 @@ const createServer = () => {
     server.registerTool('clickup-business-requirements-list', {
         title: 'List Business Requirements',
         description: 'List all business requirement tasks from ClickUp',
-        outputSchema: get_tasks_1.GetTasksOutputSchema
+        inputSchema: ListBusinessRequirementsInput_1.ListBusinessRequirementsInputSchema,
+        outputSchema: Task_1.GetTasksClickUpResponseSchema
     }, list_business_requirements_handler_1.ListBusinessRequirementsHandler);
     return server;
 };

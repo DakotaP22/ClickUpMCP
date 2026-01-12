@@ -18,4 +18,9 @@ export const TaskSchema = z4.object({
     }))
 });
 
+export const GetTasksClickUpResponseSchema = z4.object({
+    tasks: TaskSchema.array()
+});
+
 export type Task = z4.infer<typeof TaskSchema>;
+export type GetTasksClickUpResponse = z4.infer<typeof GetTasksClickUpResponseSchema>;

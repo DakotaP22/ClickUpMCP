@@ -1,10 +1,10 @@
 import { InMemoryEventStore } from "@modelcontextprotocol/sdk/examples/shared/inMemoryEventStore.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { randomUUID } from "node:crypto";
-import { createServer } from "../../../server/server.js";
-import { TransportSessionMap } from "../../../models/TransportSessionMap.js";
 // import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js";
 import { Request, Response } from "express";
+import { TransportSessionMap } from "../../models/TransportSessionMap";
+import { createServer } from "../../server/server";
 
 export const mcpPostHandler = (transports: TransportSessionMap) => async (req: Request, res: Response) => {
     const sessionId = req.headers['mcp-session-id'] as string | undefined;

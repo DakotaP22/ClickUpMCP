@@ -1,27 +1,29 @@
-import { GetTasksClickUpResponse, GetTasksClickUpResponseSchema, Task, TaskSchema } from "../../../models/clickup/Task";
-
-export const  GetTasks = async (list_id: string): Promise<GetTasksClickUpResponse> => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GetTasks = void 0;
+const Task_1 = require("../../../models/clickup/Task");
+const GetTasks = async (list_id) => {
     const endpoint = `https://api.clickup.com/api/v2/list/${list_id}/task`;
-    
     const apiToken = process.env.CLICKUP_API_KEY;
     const options = {
         method: 'GET',
         headers: {
-            'Authorization': apiToken!,
+            'Authorization': apiToken,
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         }
     };
-    
     try {
         const res = await fetch(endpoint, options);
         if (!res.ok) {
             throw new Error(`ClickUp API error: ${res.status} ${res.statusText}`);
         }
         const data = await res.json();
-        return GetTasksClickUpResponseSchema.parse(data);
-    } catch (err) {
+        return Task_1.GetTasksClickUpResponseSchema.parse(data);
+    }
+    catch (err) {
         console.error(JSON.stringify({ error: 'Failed to get tasks', details: err }));
         throw err;
     }
 };
+exports.GetTasks = GetTasks;
