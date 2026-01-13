@@ -7,8 +7,10 @@ import { CreateBusinessRequirementInputSchema } from "../models/business_require
 import { CreateBusinessRequirementOutputSchema } from "../models/business_requirements/CreateBusinessRequirementOutput";
 import { ListBusinessRequirementsInputSchema } from "../models/business_requirements/ListBusinessRequirementsInput";
 import { UpdateChecklistHandlerInputSchema } from "../models/business_requirements/UpdateChecklistHandlerInput";
-import { TasksClickUpWrapperSchema } from "../models/clickup/Task";
+import { TaskSchema, TasksClickUpWrapperSchema } from "../models/clickup/Task";
 import { ChecklistClickUpWrapperSchema } from "../models/clickup/Checklist";
+import { UpdateTaskRequestSchema } from "../models/clickup/requests/UpdateTaskRequest";
+import { UpdateTaskHandler } from "../features/clickup/handlers/update-task-handler";
 
 const MCP_API_DETAILS = {
     name: "ClickUp MCP",
@@ -59,6 +61,17 @@ export const createServer = () => {
         },
         UpdateChecklistHandler
     );
+
+    server.registerTool(
+        'clickup-general-update-task',
+        {
+            title: 'Update ClickUp Task',
+            description: 'Update the name, details, and/or status of a task in ClickUp',
+            inputSchema: UpdateTaskRequestSchema,
+            outputSchema: TaskSchema
+        },
+        UpdateTaskHandler
+    )
     //#endregion
 
 
