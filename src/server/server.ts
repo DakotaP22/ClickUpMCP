@@ -8,6 +8,9 @@ import { CreateBusinessRequirementInputSchema } from "../models/business_require
 import { CreateBusinessRequirementOutputSchema } from "../models/business_requirements/CreateBusinessRequirementOutput";
 import { TaskSchema } from "@modelcontextprotocol/sdk/types.js";
 import { GetTasksClickUpResponseSchema } from "../models/clickup/Task";
+import { UpdateRefinementChecklistHandler } from "../features/business-requirements/update-checklist-handler";
+import { UpdateRefinementChecklistHandlerInputSchema } from "../models/business_requirements/UpdateChecklistHandlerInput";
+import { CreateChecklistItemClickUpResponseSchema } from "../models/clickup/ChecklistItem";
 
 const MCP_API_DETAILS = {
     name: "ClickUp MCP",
@@ -42,6 +45,17 @@ export const createServer = () => {
             outputSchema: GetTasksClickUpResponseSchema
         },
         ListBusinessRequirementsHandler
+    );
+
+    server.registerTool(
+     'clickup-business-requirement-update-refinement-criteria-status',
+     {
+         title: 'Update Business Requirement\'s Refinement Criteria Status',
+         description: 'Update the status of a refinement criteria checklist item for a business requirement in ClickUp',
+         inputSchema: UpdateRefinementChecklistHandlerInputSchema,
+         outputSchema: CreateChecklistItemClickUpResponseSchema
+     },
+     UpdateRefinementChecklistHandler
     );
 
 
