@@ -1,16 +1,14 @@
 import { ServerOptions } from "@modelcontextprotocol/sdk/server";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import z4 from "zod/v4";
 import { CreateBusinessRequirementHandler } from "../features/business-requirements/create-business-requirement-handler";
 import { ListBusinessRequirementsHandler } from "../features/business-requirements/list-business-requirements-handler";
-import { ListBusinessRequirementsInputSchema } from "../models/business_requirements/ListBusinessRequirementsInput";
+import { UpdateRefinementChecklistHandler } from "../features/business-requirements/update-checklist-handler";
 import { CreateBusinessRequirementInputSchema } from "../models/business_requirements/CreateBusinessRequirementInput";
 import { CreateBusinessRequirementOutputSchema } from "../models/business_requirements/CreateBusinessRequirementOutput";
-import { TaskSchema } from "@modelcontextprotocol/sdk/types.js";
-import { GetTasksClickUpResponseSchema } from "../models/clickup/Task";
-import { UpdateRefinementChecklistHandler } from "../features/business-requirements/update-checklist-handler";
+import { ListBusinessRequirementsInputSchema } from "../models/business_requirements/ListBusinessRequirementsInput";
 import { UpdateRefinementChecklistHandlerInputSchema } from "../models/business_requirements/UpdateChecklistHandlerInput";
-import { CreateChecklistItemClickUpResponseSchema } from "../models/clickup/ChecklistItem";
+import { TasksClickUpWrapperSchema } from "../models/clickup/Task";
+import { ChecklistClickUpWrapperSchema } from "../models/clickup/Checklist";
 
 const MCP_API_DETAILS = {
     name: "ClickUp MCP",
@@ -42,7 +40,7 @@ export const createServer = () => {
             title: 'List Business Requirements',
             description: 'List all business requirement tasks from ClickUp',
             inputSchema: ListBusinessRequirementsInputSchema,
-            outputSchema: GetTasksClickUpResponseSchema
+            outputSchema: TasksClickUpWrapperSchema
         },
         ListBusinessRequirementsHandler
     );
@@ -53,7 +51,7 @@ export const createServer = () => {
          title: 'Update Business Requirement\'s Refinement Criteria Status',
          description: 'Update the status of a refinement criteria checklist item for a business requirement in ClickUp',
          inputSchema: UpdateRefinementChecklistHandlerInputSchema,
-         outputSchema: CreateChecklistItemClickUpResponseSchema
+         outputSchema: ChecklistClickUpWrapperSchema
      },
      UpdateRefinementChecklistHandler
     );

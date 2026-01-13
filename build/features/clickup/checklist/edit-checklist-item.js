@@ -22,7 +22,7 @@ const EditChecklistItem = async (checklist_id, checklist_item_id, updates) => {
             throw new Error(`ClickUp API error: ${res.status} ${res.statusText}`);
         }
         const data = await res.json();
-        return Checklist_1.CreateChecklistClickUpResponseSchema.parse(data);
+        return Checklist_1.ChecklistClickUpWrapperSchema.parse(data);
     }
     catch (err) {
         console.error(JSON.stringify({ error: 'Failed to edit checklist item', details: err }));

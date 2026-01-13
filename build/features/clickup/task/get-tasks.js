@@ -19,7 +19,7 @@ const GetTasks = async (list_id) => {
             throw new Error(`ClickUp API error: ${res.status} ${res.statusText}`);
         }
         const data = await res.json();
-        return Task_1.GetTasksClickUpResponseSchema.parse(data);
+        return Task_1.TasksClickUpWrapperSchema.parse(data);
     }
     catch (err) {
         console.error(JSON.stringify({ error: 'Failed to get tasks', details: err }));

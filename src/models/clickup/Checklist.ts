@@ -7,9 +7,9 @@ export const ChecklistSchema = z4.object({
     items: z4.array(ChecklistItemSchema)
 });
 
-export const CreateChecklistClickUpResponseSchema = z4.object({
+export const ChecklistClickUpWrapperSchema = z4.object({
     checklist: ChecklistSchema
 });
 
 export type Checklist = z4.infer<typeof ChecklistSchema>;
-export type CreateChecklistClickUpResponse = z4.infer<typeof CreateChecklistClickUpResponseSchema>;
+export type ChecklistClickUpWrapper = z4.infer<typeof ChecklistClickUpWrapperSchema>;

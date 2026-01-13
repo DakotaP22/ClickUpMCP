@@ -4,13 +4,13 @@ exports.createServer = void 0;
 const mcp_js_1 = require("@modelcontextprotocol/sdk/server/mcp.js");
 const create_business_requirement_handler_1 = require("../features/business-requirements/create-business-requirement-handler");
 const list_business_requirements_handler_1 = require("../features/business-requirements/list-business-requirements-handler");
-const ListBusinessRequirementsInput_1 = require("../models/business_requirements/ListBusinessRequirementsInput");
+const update_checklist_handler_1 = require("../features/business-requirements/update-checklist-handler");
 const CreateBusinessRequirementInput_1 = require("../models/business_requirements/CreateBusinessRequirementInput");
 const CreateBusinessRequirementOutput_1 = require("../models/business_requirements/CreateBusinessRequirementOutput");
+const ListBusinessRequirementsInput_1 = require("../models/business_requirements/ListBusinessRequirementsInput");
+const UpdateChecklistHandlerInput_1 = require("../models/business_requirements/UpdateChecklistHandlerInput");
 const Task_1 = require("../models/clickup/Task");
-const update_refinement_checklist_handler_1 = require("../features/business-requirements/update-refinement-checklist-handler");
-const UpdateRefinementChecklistHandlerInput_1 = require("../models/business_requirements/UpdateRefinementChecklistHandlerInput");
-const ChecklistItem_1 = require("../models/clickup/ChecklistItem");
+const Checklist_1 = require("../models/clickup/Checklist");
 const MCP_API_DETAILS = {
     name: "ClickUp MCP",
     description: "ClickUp Model Context Protocol Server",
@@ -31,14 +31,14 @@ const createServer = () => {
         title: 'List Business Requirements',
         description: 'List all business requirement tasks from ClickUp',
         inputSchema: ListBusinessRequirementsInput_1.ListBusinessRequirementsInputSchema,
-        outputSchema: Task_1.GetTasksClickUpResponseSchema
+        outputSchema: Task_1.TasksClickUpWrapperSchema
     }, list_business_requirements_handler_1.ListBusinessRequirementsHandler);
     server.registerTool('clickup-business-requirement-update-refinement-criteria-status', {
         title: 'Update Business Requirement\'s Refinement Criteria Status',
         description: 'Update the status of a refinement criteria checklist item for a business requirement in ClickUp',
-        inputSchema: UpdateRefinementChecklistHandlerInput_1.UpdateRefinementChecklistHandlerInputSchema,
-        outputSchema: ChecklistItem_1.CreateChecklistItemClickUpResponseSchema
-    }, update_refinement_checklist_handler_1.UpdateRefinementChecklistHandler);
+        inputSchema: UpdateChecklistHandlerInput_1.UpdateRefinementChecklistHandlerInputSchema,
+        outputSchema: Checklist_1.ChecklistClickUpWrapperSchema
+    }, update_checklist_handler_1.UpdateRefinementChecklistHandler);
     return server;
 };
 exports.createServer = createServer;

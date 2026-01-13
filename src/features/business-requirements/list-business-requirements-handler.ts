@@ -1,7 +1,7 @@
 import { GetTasks } from "../clickup/task/get-tasks";
 import { getBusinessRequirementsListId } from "../../util/env-getters";
 import { ListBusinessRequirementsInput } from "../../models/business_requirements/ListBusinessRequirementsInput";
-import { GetTasksClickUpResponse, Task } from "../../models/clickup/Task";
+import { Task, TasksClickUpWrapper } from "../../models/clickup/Task";
 
 export const ListBusinessRequirementsHandler =
     async (input: ListBusinessRequirementsInput) => {
@@ -10,7 +10,7 @@ export const ListBusinessRequirementsHandler =
         const { tasks } = await GetTasks(requirements_list_id);
         const filtered: Task[] = filterByScope(tasks, input.scope);
 
-        const output = { tasks: filtered } as GetTasksClickUpResponse;
+        const output = { tasks: filtered } as TasksClickUpWrapper;
         return {
             content: [{ type: 'text' as const, text: JSON.stringify(output) }],
             structuredContent: output

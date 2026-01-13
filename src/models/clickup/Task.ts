@@ -11,9 +11,9 @@ export const TaskSchema = z4.object({
     checklists: z4.array(ChecklistSchema)
 });
 
-export const GetTasksClickUpResponseSchema = z4.object({
+export const TasksClickUpWrapperSchema = z4.object({
     tasks: TaskSchema.array()
 });
 
 export type Task = z4.infer<typeof TaskSchema>;
-export type GetTasksClickUpResponse = z4.infer<typeof GetTasksClickUpResponseSchema>;
+export type TasksClickUpWrapper = z4.infer<typeof TasksClickUpWrapperSchema>;
