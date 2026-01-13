@@ -1,6 +1,6 @@
-import { createChecklist } from "../clickup/checklist/create-checklist";
-import { createChecklistItem } from "../clickup/checklist/create-checklist-item";
-import { CreateTask } from "../clickup/task/create-task";
+import { createChecklist } from "../clickup/client/checklist/create-checklist";
+import { createChecklistItem } from "../clickup/client/checklist/create-checklist-item";
+import { CreateTask } from "../clickup/client/task/create-task";
 import { getBusinessRequirementsListId, getFolderId } from "../../util/env-getters";
 import { CreateBusinessRequirementInput } from "../../models/business_requirements/CreateBusinessRequirementInput";
 import { CreateBusinessRequirementOutput } from "../../models/business_requirements/CreateBusinessRequirementOutput";

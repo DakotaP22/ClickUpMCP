@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateBusinessRequirementHandler = void 0;
-const create_checklist_1 = require("../clickup/checklist/create-checklist");
-const create_checklist_item_1 = require("../clickup/checklist/create-checklist-item");
-const create_task_1 = require("../clickup/task/create-task");
+const create_checklist_1 = require("../clickup/client/checklist/create-checklist");
+const create_checklist_item_1 = require("../clickup/client/checklist/create-checklist-item");
+const create_task_1 = require("../clickup/client/task/create-task");
 const env_getters_1 = require("../../util/env-getters");
 const CreateBusinessRequirementHandler = async (input) => {
     const requirements_list_id = (0, env_getters_1.getBusinessRequirementsListId)();

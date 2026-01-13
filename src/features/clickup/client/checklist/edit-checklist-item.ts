@@ -1,4 +1,4 @@
-import { ChecklistClickUpWrapper, ChecklistClickUpWrapperSchema } from "../../../models/clickup/Checklist";
+import { ChecklistClickUpWrapper, ChecklistClickUpWrapperSchema } from "../../../../models/clickup/Checklist";
 
 export const EditChecklistItem = async (
     checklist_id: string,

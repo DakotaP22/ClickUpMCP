@@ -2,11 +2,11 @@ import { ServerOptions } from "@modelcontextprotocol/sdk/server";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CreateBusinessRequirementHandler } from "../features/business-requirements/create-business-requirement-handler";
 import { ListBusinessRequirementsHandler } from "../features/business-requirements/list-business-requirements-handler";
-import { UpdateRefinementChecklistHandler } from "../features/business-requirements/update-checklist-handler";
+import { UpdateChecklistHandler } from "../features/clickup/handlers/update-checklist-handler";
 import { CreateBusinessRequirementInputSchema } from "../models/business_requirements/CreateBusinessRequirementInput";
 import { CreateBusinessRequirementOutputSchema } from "../models/business_requirements/CreateBusinessRequirementOutput";
 import { ListBusinessRequirementsInputSchema } from "../models/business_requirements/ListBusinessRequirementsInput";
-import { UpdateRefinementChecklistHandlerInputSchema } from "../models/business_requirements/UpdateChecklistHandlerInput";
+import { UpdateChecklistHandlerInputSchema } from "../models/business_requirements/UpdateChecklistHandlerInput";
 import { TasksClickUpWrapperSchema } from "../models/clickup/Task";
 import { ChecklistClickUpWrapperSchema } from "../models/clickup/Checklist";
 
@@ -46,14 +46,14 @@ export const createServer = () => {
     );
 
     server.registerTool(
-     'clickup-business-requirement-update-refinement-criteria-status',
-     {
-         title: 'Update Business Requirement\'s Refinement Criteria Status',
-         description: 'Update the status of a refinement criteria checklist item for a business requirement in ClickUp',
-         inputSchema: UpdateRefinementChecklistHandlerInputSchema,
-         outputSchema: ChecklistClickUpWrapperSchema
-     },
-     UpdateRefinementChecklistHandler
+        'clickup-general-update-checklist-item',
+        {
+            title: 'Updates Checklist Item Status',
+            description: 'Update the status of a checklist item for a checklist in ClickUp',
+            inputSchema: UpdateChecklistHandlerInputSchema,
+            outputSchema: ChecklistClickUpWrapperSchema
+        },
+        UpdateChecklistHandler
     );
 
 

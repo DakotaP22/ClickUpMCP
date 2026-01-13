@@ -1,4 +1,4 @@
-import { GetTasks } from "../clickup/task/get-tasks";
+import { GetTasks } from "../clickup/client/task/get-tasks";
 import { getBusinessRequirementsListId } from "../../util/env-getters";
 import { ListBusinessRequirementsInput } from "../../models/business_requirements/ListBusinessRequirementsInput";
 import { Task, TasksClickUpWrapper } from "../../models/clickup/Task";
