@@ -23,6 +23,7 @@ const MCP_API_OPTS: ServerOptions = {
 export const createServer = () => {
     const server = new McpServer(MCP_API_DETAILS, MCP_API_OPTS);
 
+    //#region Business Requirement Tools
     server.registerTool(
         'clickup-business-requirement-create',
         {
@@ -44,7 +45,10 @@ export const createServer = () => {
         },
         ListBusinessRequirementsHandler
     );
+    //#endregion
 
+
+    //#region General ClickUp Tools
     server.registerTool(
         'clickup-general-update-checklist-item',
         {
@@ -55,6 +59,7 @@ export const createServer = () => {
         },
         UpdateChecklistHandler
     );
+    //#endregion
 
 
     return server;
